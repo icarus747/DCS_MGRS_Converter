@@ -1,9 +1,21 @@
 # DCS_MGRS_Converter
-Simple MGRS grid converter to latitude longitude in degree decmal minute.
+A simple coordinate conversion utility to convert from MGRS, DD, or DMS to any of the other coordinate systems.
 
-* Use by running the script and giving the MGRS location of interest.
-  * First enter the Grid Zone. ie: 38T
-  * Second enter the Square ID. ie: KN
-  * Third enter the East-West position of at least 3 digits.
-  * Forth enter the North-South position of at least 3 digits.
-  * 38TKN732621
+
+## Usage
+
+TODO - A simple GUI Frontend needs to be worked in, but for now it can be executed via Python3...
+
+```
+python3 main.py <coordinate-type> <coordinates>
+```
+
+Example:
+```
+python3 main.py mgrs 17SNU5478598457
+```
+
+Returns:
+```
+{'mgrs': '17SNU5478598457', 'dd': '35.227667 -80.397959', 'dms': 'N 35 13 39.6020, W 80 23 52.6516'}
+```
