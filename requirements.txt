@@ -1,4 +1,2 @@
 mgrs==1.4.0
-packaging==20.4
-pyparsing==2.4.7
-six==1.15.0
+click==7.1.2
