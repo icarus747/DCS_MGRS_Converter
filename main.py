@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+# By Icarus747
+# Created 10/11/2020
+
+# Used for converting DCS MGRS grid coordinates to Lat/Long coordinates.
+
 import mgrs
 
 
