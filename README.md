@@ -10,7 +10,15 @@ TODO - A simple GUI Frontend needs to be worked in, but for now it can be execut
 python3 main.py <coordinate-type> <coordinates>
 ```
 
-Example:
+| Variable Name | Description | Required | Default | 
+|---------------|-------------|----------|---------|
+| coordinate_type | "The type of inputted coordinates. One of `mgrs`, `dd`, or `dms`." | yes | '' |
+| coordinates | "The raw coordinates to convert." | yes | '' |
+
+------------------------
+
+## Example:
+
 ```
 python3 main.py mgrs 17SNU5478598457
 ```
