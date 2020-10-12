@@ -19,7 +19,7 @@ class CoordConvert:
             self.conversion['dd']  = '{:.6f} {:.6f}'.format(latd, lond)
             self.conversion['dms'] = '{}'.format(dms_string)
         if input_format.lower() == 'dd':
-            self.conversion['dd'] = '{}, {}'.format(input_data[0], input_data[1])
+            self.conversion['dd'] = '{:.6f} {:.6f}'.format(input_data[0], input_data[1])
             to_mgrs = self.coord.toMGRS(input_data[0],input_data[1])
             lat['d'],lat['m'],lat['s'] = self.coord.ddtodms(input_data[0])
             lon['d'],lon['m'],lon['s'] = self.coord.ddtodms(input_data[1])
@@ -27,7 +27,7 @@ class CoordConvert:
             self.conversion['mgrs'] = '{}'.format(to_mgrs)
             self.conversion['dms']  = '{}'.format(dms_string)
         if input_format.lower() == 'dms':
-            dms_string = ('N ' if input_data[0][0] > 0 else 'S ') + '{:.0f} {:.0f} {:.4f}, '.format(input_data[0][0],input_data[0][1],input_data[0][2]) + ('E ' if input_data[1][0] > 0 else 'W ') + '{:.0f} {:.0f} {:.4f}'.format(input_data[1][0],input_data[1][1],input_data[1][2])
+            dms_string = ('N ' if input_data[0][0] > 0 else 'S ') + '{:.0f} {:.0f} {:.4f}, '.format(input_data[0][0],input_data[0][1],input_data[0][2]) + ('W ' if input_data[1][0] > 0 else 'E ') + '{:.0f} {:.0f} {:.4f}'.format(input_data[1][0],input_data[1][1],input_data[1][2])
             self.conversion['dms'] = str(dms_string)
             lat_float, lon_float = tuple(float(i) for i in input_data[0]), tuple(float(j) for j in input_data[1])
             lat_string = '{:.0f}{:.0f}{:.2f}'.format(lat_float[0],lat_float[1],lat_float[2]) + ( 'N' if lat_float[0] > 0 else 'S' )
