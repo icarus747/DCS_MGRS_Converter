@@ -3,14 +3,19 @@ import tkinter as tk
 from utils.convert import CoordConvert
 
 def main():
+    def convert(coord_type,input_data):
+        coords = CoordConvert(coord_type, input_data)
+        for k, v in coords.conversion:
+            text.insert(tk.INSERT, '{} :: {}'.format(k,v))
+            print('{} :: {}'.format(k,v))
+
     # Window Setup
     window = tk.Tk() 
     window.title("DCS Coordinate Conversion")
-    topFrame = tk.Frame(window)
-    topFrame.pack()
 
-    bottomFrame = tk.Frame(window)
-    bottomFrame.pack(side=tk.BOTTOM)
+    # Primary Frames setup
+    topFrame = tk.Frame(window).pack(side=tk.TOP)
+    bottomFrame = tk.Frame(window).pack(side=tk.BOTTOM)
 
     # Toolbar menus
     menu = tk.Menu(window)
@@ -20,31 +25,29 @@ def main():
     subMenu_exit.add_command(label="Exit", command=window.quit)
 
     # Coordinate type select
-    selectFrame = tk.Frame(topFrame)
-    selectFrame.pack(side=tk.LEFT)
-    type_label = tk.Label(selectFrame, text='Input Type:')
-    type_label.pack()
-    listbox = tk.Listbox(selectFrame, height=3)
-    listbox.insert(1, "MGRS")
-    listbox.insert(2, "DD")
-    listbox.insert(3, "DMS")
-    listbox.pack(side=tk.LEFT)
+    selectFrame = tk.Frame(topFrame).pack(side=tk.LEFT)
+    type_label = tk.Label(selectFrame, text='Input Type:').pack()
+    radios = ['MGRS', 'DD', 'DMS']
+    coord_type = tk.StringVar()
+    for text in radios:
+        b = tk.Radiobutton(selectFrame, text=text, variable=coord_type, value=text, width=20).pack()
 
     # Input Coordinates
-    inputFrame = tk.Frame(topFrame)
-    inputFrame.pack(side=tk.RIGHT)
-    input_label = tk.Label(inputFrame, text='Coordinates:', width=20)
-    input_label.pack(side=tk.LEFT)
-    input_data = tk.Entry(inputFrame)
-    input_data.pack(side=tk.RIGHT)
+    inputFrame = tk.Frame(topFrame).pack(side=tk.RIGHT)
+    input_label = tk.Label(inputFrame, text='Coordinates:', width=20).pack(side=tk.LEFT)
+    input_data = tk.Entry(inputFrame).pack(side=tk.RIGHT)
+
+    # Conversion Button
+    convertFrame = tk.Frame(topFrame).pack(side=tk.BOTTOM)
+    convertButton = tk.Button(convertFrame, text='CONVERT', command=convert(coord_type.get(), input_data.get()), width=40).pack()
 
     # Output Conversion
     outputFrame = tk.Frame(bottomFrame)
     outputFrame.pack(side=tk.RIGHT)
     output_label = tk.Label(outputFrame, text='Conversion:')
     output_label.pack(side=tk.LEFT)
-    text = tk.Text(outputFrame, width=20, height=3)
-    text.insert(tk.INSERT, '\n'.join([ str(i) for i in range(3) ]))
+    text = tk.Text(outputFrame, height=4)
+    # text.insert(tk.INSERT, 'hey\nthis\nis\nfun')
     text.pack(side=tk.RIGHT)
 
     window.mainloop()
