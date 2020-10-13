@@ -3,7 +3,9 @@ import tkinter as tk
 from utils.convert import CoordConvert
 
 def main():
-    def convert(coord_type,input_data):
+    def convert(coord_type, input_data):
+        coord_type = coord_type.get()
+        input_data = input_data.get()
         coords = CoordConvert(coord_type, input_data)
         for k, v in coords.conversion:
             text.insert(tk.INSERT, '{} :: {}'.format(k,v))
@@ -30,16 +32,17 @@ def main():
     radios = ['MGRS', 'DD', 'DMS']
     coord_type = tk.StringVar()
     for text in radios:
-        b = tk.Radiobutton(selectFrame, text=text, variable=coord_type, value=text, width=20).pack()
+        b = tk.Radiobutton(selectFrame, text=text, textvariable=coord_type, value=text, width=20).pack()
 
     # Input Coordinates
-    inputFrame = tk.Frame(topFrame).pack(side=tk.RIGHT)
+    inputFrame  = tk.Frame(topFrame).pack(side=tk.RIGHT)
     input_label = tk.Label(inputFrame, text='Coordinates:', width=20).pack(side=tk.LEFT)
-    input_data = tk.Entry(inputFrame).pack(side=tk.RIGHT)
+    input_data  = tk.StringVar()
+    input_entry = tk.Entry(inputFrame, textvariable=input_data).pack(side=tk.RIGHT)
 
     # Conversion Button
     convertFrame = tk.Frame(topFrame).pack(side=tk.BOTTOM)
-    convertButton = tk.Button(convertFrame, text='CONVERT', command=convert(coord_type.get(), input_data.get()), width=40).pack()
+    convertButton = tk.Button(convertFrame, text='CONVERT', command=convert(coord_type,input_data), width=40).pack()
 
     # Output Conversion
     outputFrame = tk.Frame(bottomFrame)
