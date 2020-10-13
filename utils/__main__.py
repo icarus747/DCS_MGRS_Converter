@@ -7,17 +7,22 @@ def main():
         coord_type = coord_type.get()
         input_data = input_data.get()
         coords = CoordConvert(coord_type, input_data)
-        for k, v in coords.conversion:
-            text.insert(tk.INSERT, '{} :: {}'.format(k,v))
-            print('{} :: {}'.format(k,v))
+        text.delete(1.0, tk.END)
+        for key in coords.conversion:
+            ctype = key.upper()
+            cval  = coords.conversion[key]
+            text.insert(tk.INSERT, '{}\n  {}\n\n'.format(ctype,cval))
 
     # Window Setup
     window = tk.Tk() 
     window.title("DCS Coordinate Conversion")
+    window.geometry("500x300")
 
     # Primary Frames setup
-    topFrame = tk.Frame(window).pack(side=tk.TOP)
-    bottomFrame = tk.Frame(window).pack(side=tk.BOTTOM)
+    topFrame = tk.Frame(window)
+    topFrame.pack(side="top")
+    bottomFrame = tk.Frame(window)
+    bottomFrame.pack(side="bottom")
 
     # Toolbar menus
     menu = tk.Menu(window)
@@ -27,30 +32,38 @@ def main():
     subMenu_exit.add_command(label="Exit", command=window.quit)
 
     # Coordinate type select
-    selectFrame = tk.Frame(topFrame).pack(side=tk.LEFT)
-    type_label = tk.Label(selectFrame, text='Input Type:').pack()
+    selectFrame = tk.Frame(topFrame)
+    selectFrame.pack(side="left")
+    type_label = tk.Label(selectFrame, text='Input Type:')
+    type_label.pack()
     radios = ['MGRS', 'DD', 'DMS']
     coord_type = tk.StringVar()
     for text in radios:
-        b = tk.Radiobutton(selectFrame, text=text, textvariable=coord_type, value=text, width=20).pack()
+        b = tk.Radiobutton(selectFrame, text=text, variable=coord_type, value=text.lower())
+        b.pack(anchor="w")
+        b.deselect()
 
     # Input Coordinates
-    inputFrame  = tk.Frame(topFrame).pack(side=tk.RIGHT)
-    input_label = tk.Label(inputFrame, text='Coordinates:', width=20).pack(side=tk.LEFT)
+    inputFrame  = tk.Frame(topFrame)
+    inputFrame.pack(side="right")
+    input_label = tk.Label(inputFrame, text='Coordinates:', width=20)
+    input_label.pack(side="left")
     input_data  = tk.StringVar()
-    input_entry = tk.Entry(inputFrame, textvariable=input_data).pack(side=tk.RIGHT)
+    input_entry = tk.Entry(inputFrame, textvariable=input_data, width=40)
+    input_entry.pack(side="right")
 
     # Conversion Button
-    convertFrame = tk.Frame(topFrame).pack(side=tk.BOTTOM)
-    convertButton = tk.Button(convertFrame, text='CONVERT', command=convert(coord_type,input_data), width=40).pack()
+    convertFrame = tk.Frame(bottomFrame)
+    convertFrame.pack(side="top")
+    convertButton = tk.Button(convertFrame, text='CONVERT', command=lambda: convert(coord_type,input_data), width=40)
+    convertButton.pack(side="right")
 
     # Output Conversion
     outputFrame = tk.Frame(bottomFrame)
-    outputFrame.pack(side=tk.RIGHT)
+    outputFrame.pack(side="right")
     output_label = tk.Label(outputFrame, text='Conversion:')
-    output_label.pack(side=tk.LEFT)
-    text = tk.Text(outputFrame, height=4)
-    # text.insert(tk.INSERT, 'hey\nthis\nis\nfun')
-    text.pack(side=tk.RIGHT)
+    output_label.pack(side="left")
+    text = tk.Text(outputFrame, height=6, width=40)
+    text.pack(side="right")
 
     window.mainloop()
