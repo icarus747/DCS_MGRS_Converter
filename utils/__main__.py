@@ -13,14 +13,48 @@ def main():
             cval  = coords.conversion[key]
             text.insert(tk.INSERT, '{}\n  {}\n\n'.format(ctype,cval))
 
+    def showWidget(selected):
+        if selected == 'mgrs':
+            mgrs_entry.grid(column=2, row=2)
+            dd_entry_lat.grid_forget()
+            dd_entry_lon.grid_forget()
+            dms_lat_d.grid_forget()
+            dms_lat_m.grid_forget()
+            dms_lat_s.grid_forget()
+            dms_lon_d.grid_forget()
+            dms_lon_m.grid_forget()
+            dms_lon_s.grid_forget()
+        if selected == 'dd':
+            dd_entry_lat.grid(column=2, row=1)
+            dd_entry_lon.grid(column=2, row=2)
+            mgrs_entry.grid_forget()
+            dms_lat_d.grid_forget()
+            dms_lat_m.grid_forget()
+            dms_lat_s.grid_forget()
+            dms_lon_d.grid_forget()
+            dms_lon_m.grid_forget()
+            dms_lon_s.grid_forget()
+        if selected == 'dms':
+            dms_lat_d.grid(column=1, row=1)
+            dms_lat_m.grid(column=2, row=1)
+            dms_lat_s.grid(column=3, row=1)
+            dms_lon_d.grid(column=1, row=2)
+            dms_lon_m.grid(column=2, row=2)
+            dms_lon_s.grid(column=3, row=2)
+            mgrs_entry.grid_forget()
+            dd_entry_lat.grid_forget()
+            dd_entry_lon.grid_forget()
+
     # Window Setup
     window = tk.Tk() 
     window.title("DCS Coordinate Conversion")
-    window.geometry("500x300")
+    window.geometry("600x300")
 
     # Primary Frames setup
     topFrame = tk.Frame(window)
     topFrame.pack(side="top")
+    midFrame = tk.Frame(window)
+    midFrame.pack()
     bottomFrame = tk.Frame(window)
     bottomFrame.pack(side="bottom")
 
@@ -37,25 +71,45 @@ def main():
     type_label = tk.Label(selectFrame, text='Input Type:')
     type_label.pack()
     radios = ['MGRS', 'DD', 'DMS']
-    coord_type = tk.StringVar()
-    for text in radios:
-        b = tk.Radiobutton(selectFrame, text=text, variable=coord_type, value=text.lower())
-        b.pack(anchor="w")
-        b.deselect()
+    coord_type = tk.StringVar(value='mgrs')
+    mgrs_radio = tk.Radiobutton(selectFrame, text='MGRS', variable=coord_type, value='mgrs', command=lambda: showWidget('mgrs'))
+    mgrs_radio.pack(anchor="w")
+    dd_radio = tk.Radiobutton(selectFrame, text='DD', variable=coord_type, value='dd', command=lambda: showWidget('dd'))
+    dd_radio.pack(anchor="w")
+    dms_radio = tk.Radiobutton(selectFrame, text='DMS', variable=coord_type, value='dms', command=lambda: showWidget('dms'))
+    dms_radio.pack(anchor="w")
 
     # Input Coordinates
-    inputFrame  = tk.Frame(topFrame)
-    inputFrame.pack(side="right")
-    input_label = tk.Label(inputFrame, text='Coordinates:', width=20)
+    labelRight  = tk.Frame(topFrame)
+    labelRight.pack(side="left")
+    input_label = tk.Label(labelRight, text='Coordinates:')
     input_label.pack(side="left")
-    input_data  = tk.StringVar()
-    input_entry = tk.Entry(inputFrame, textvariable=input_data, width=40)
-    input_entry.pack(side="right")
+   
+    inputFrame = tk.Frame(topFrame)
+    inputFrame.pack(side="right")
+    mgrs_data  = tk.StringVar()
+    mgrs_entry  = tk.Entry(inputFrame, textvariable=mgrs_data, width=10)
+    mgrs_entry.grid(column=2, row=2)
+    
+    dd_lat = tk.StringVar()
+    dd_lon = tk.StringVar()
+    dd_entry_lat = tk.Entry(inputFrame, textvariable=dd_lat, width=10) 
+    dd_entry_lon = tk.Entry(inputFrame, textvariable=dd_lon, width=10)
+    
+    lat, lon = {}, {}
+    lat['d'],lat['m'],lat['s'] = tk.StringVar(),tk.StringVar(),tk.StringVar()
+    lon['d'],lon['m'],lon['s'] = tk.StringVar(),tk.StringVar(),tk.StringVar()
+    dms_lat_d = tk.Entry(inputFrame, textvariable=lat['d'], width=2)
+    dms_lat_m = tk.Entry(inputFrame, textvariable=lat['m'], width=2)
+    dms_lat_s = tk.Entry(inputFrame, textvariable=lat['s'], width=6)
+    dms_lon_d = tk.Entry(inputFrame, textvariable=lon['d'], width=2)
+    dms_lon_m = tk.Entry(inputFrame, textvariable=lon['m'], width=2)
+    dms_lon_s = tk.Entry(inputFrame, textvariable=lon['s'], width=6)
 
     # Conversion Button
-    convertFrame = tk.Frame(bottomFrame)
+    convertFrame = tk.Frame(midFrame)
     convertFrame.pack(side="top")
-    convertButton = tk.Button(convertFrame, text='CONVERT', command=lambda: convert(coord_type,input_data), width=40)
+    convertButton = tk.Button(convertFrame, text='CONVERT', command=lambda: convert(coord_type,mgrs_data), width=40)
     convertButton.pack(side="right")
 
     # Output Conversion
