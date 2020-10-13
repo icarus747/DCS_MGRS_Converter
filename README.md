@@ -1,5 +1,5 @@
 # DCS_MGRS_Converter
-Simple MGRS grid converter to latitude longitude in degree decmal minute.
+Simple MGRS grid converter to latitude longitude in degree and decimal minute.
 
 * Use by running the script and giving the MGRS location of interest.
   * First enter the Grid Zone. ie: 38T
