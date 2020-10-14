@@ -4,26 +4,16 @@ A simple coordinate conversion utility to convert from MGRS, DD, or DMS to any o
 
 ## Usage
 
-TODO - A simple GUI Frontend needs to be worked in, but for now it can be executed via Python3...
+TODO - Bundle the GUI into an easier executable so users have no dependencies
 
 ```
-python3 main.py <coordinate-type> <coordinates>
+python3 dcs_converter.py
 ```
 
-| Variable Name | Description | Required | Default | 
-|---------------|-------------|----------|---------|
-| coordinate_type | "The type of inputted coordinates. One of `mgrs`, `dd`, or `dms`." | yes | '' |
-| coordinates | "The raw coordinates to convert." | yes | '' |
+A GUI interface will launch allowing you to provide MGRS, DD, or DMS coordinates and return the same coordinates in all 3 coordinate systems.
 
 ------------------------
 
-## Example:
+## Requirements
 
-```
-python3 main.py mgrs 17SNU5478598457
-```
-
-Returns:
-```
-{'mgrs': '17SNU5478598457', 'dd': '35.227667 -80.397959', 'dms': 'N 35 13 39.6020, W 80 23 52.6516'}
-```
+See requirements.txt

@@ -132,7 +132,7 @@ def main():
     outputFrame = tk.Frame(bottomFrame)
     outputFrame.pack(side="right")
     output_label = tk.Label(outputFrame, text='Conversion:')
-    output_label.pack(side="left")
+    output_label.pack()
     text = tk.Text(outputFrame, height=10, width=40)
     text.pack(side="right")
 
