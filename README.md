@@ -16,4 +16,10 @@ A GUI interface will launch allowing you to provide MGRS, DD, or DMS coordinates
 
 ## Requirements
 
-See requirements.txt
+> python 3.6+
+
+Install requirements using pip:
+
+```
+python -m pip install -r requirements.txt
+```
