@@ -1,7 +1,10 @@
 /venv/
+pyvenv.cfg
+Lib/*
 *.pyc
 __pycache__/*
 **.pytest_cache*
-**dist*
-**build
+dist/*
+build/*
+Scripts/*
 *.spec
