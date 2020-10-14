@@ -100,7 +100,7 @@ def main():
     inputFrame = tk.Frame(topFrame)
     inputFrame.pack(side="right")
     mgrs_data  = tk.StringVar()
-    mgrs_entry  = tk.Entry(inputFrame, textvariable=mgrs_data, width=10)
+    mgrs_entry  = tk.Entry(inputFrame, textvariable=mgrs_data, width=20)
     mgrs_entry.grid(column=2, row=2)
     
     # DD Inputs
